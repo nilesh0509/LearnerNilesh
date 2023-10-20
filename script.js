@@ -73,26 +73,14 @@ var typed = new Typed(".about .typing-2", {
 });
 
 
-var btn = document.getElementById('btnn');
-btn.addEventListener('click',function(e){
-    e.preventDefault()
-    var name = document.getElementById('name').value;
-    var email = document.getElementById('email').value;
-    var subject = document.getElementById('subject').value;
-    var message = document.getElementById('message').value;
+const scriptURL = 'https://script.google.com/macros/s/AKfycbwZjVsnll7823F9AVGaW3Bw2iDUAsFUsufVKEMaxjdftyGxeicbOcUZ3rI-ZHIzc5oNSA/exec'
 
-    var body = 'name: ' + name + '<br/> email: ' + email + '<br/> subject: ' + subject + '<br/> message: ' + message;
+const form = document.forms['contact-form']
 
-
-    Email.send({
-        Host : "smtp.gmail.com",
-        Username : "nilesh12105@gmail.com",
-        Password : "immq jpxj ojep tkgb",
-        To : 'nilesh12105@gmail.com',
-        From : email,
-        Subject : subject,
-        Body :body
-    }).then(
-    message => alert(message)
-    );
+form.addEventListener('submit', e => {
+  e.preventDefault()
+  fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+  .then(response => alert("Thanks for Contacting us..! We Will Contact You Soon..." ))
+  .then(() => { window.location.reload(); })
+  .catch(error => console.error('Error!', error.message))
 })
